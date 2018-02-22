@@ -1,0 +1,8 @@
+services:
+  dd_breakgen.generator.breakpoint:
+    class: Drupal\dd_breakgen\Service\ImageStyleGenerator
+    arguments:
+    - '@breakpoint.manager'
+    - '@plugin.manager.image.effect'
+    - '@entity_type.manager'
+    - '@theme.manager'

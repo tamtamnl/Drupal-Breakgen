@@ -1,0 +1,23 @@
+{
+  "name": "drupal/breakgen",
+  "type": "drupal-module",
+  "description": "",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/dd_csp_generator",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/dd_csp_generator",
+    "source": "http://cgit.drupalcode.org/dd_csp_generator"
+  },
+  "require": {
+
+  },
+  "authors": [
+    {
+      "name": "Lou van der Laarse",
+      "email": "loul@tamtam.nl",
+      "role": "Developer"
+    }
+  ]
+}
