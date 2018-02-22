@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\dd_breakgen\Service;
+namespace Drupal\breakgen\Service;
 
 use Drupal\breakpoint\BreakpointManager;
 use Drupal\Core\Entity\EntityTypeManager;

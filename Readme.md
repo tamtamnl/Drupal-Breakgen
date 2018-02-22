@@ -7,18 +7,18 @@ Check the [breakgen](https://github.com/tamtamnl/Drupal-Breakgen) repository for
 
 ## Description
 
-The Breakgen module provides a new drush command (`drush ddbg`) which generate imagestyles based on your theme breakpoints.yml file
+The Breakgen module provides a new drush command (`drush bg`) which generate imagestyles based on your theme breakpoints.yml file
 
-## Example dd_breakgen.breakpoint.yml file
-Please check for your own theme or directly use the dd_breakgen.breakpoint.yml inside your project. 
+## Example breakgen.breakpoint.yml file
+Please check for your own theme or directly use the breakgen.breakpoint.yml inside your project. 
 
 ## Add the disered crop types
 For example add the 16_9 in the cms /admin/config/media/crop
 
 ## Howto generate
-Run the command `drush ddbg dd_breakgen`   
+Run the command `drush bg breakgen`   
 
-Please note if you define your own *.breakpoints.yml file please clear **the cache** before running the `drush ddbg` command.
+Please note if you define your own *.breakpoints.yml file please clear **the cache** before running the `drush bg` command.
 Clearing the cache will read the breakpoints.yml file again after modifications.
 
 ## Mapping responsive images
