@@ -1,5 +1,5 @@
 services:
-  dd_breakgen.generator.breakpoint:
+  breakgen.service.generator:
     class: Drupal\breakgen\Service\ImageStyleGenerator
     arguments:
     - '@breakpoint.manager'

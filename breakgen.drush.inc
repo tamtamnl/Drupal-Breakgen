@@ -20,6 +20,6 @@ function breakgen_drush_command()
 
 function drush_breakgen_breakpoint_generate($theme = null)
 {
-    $batchProvider = \Drupal::service('dd_breakgen.generator.breakpoint');
+    $batchProvider = \Drupal::service('breakgen.service.generator');
     $batchProvider->generate($theme);
 }

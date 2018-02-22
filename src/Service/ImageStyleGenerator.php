@@ -45,7 +45,7 @@ class ImageStyleGenerator
     {
         $imageStyles = $this->entityTypeManager->getStorage('image_style')
             ->getQuery()
-            ->condition('name', "dd_breakgen", 'CONTAINS')
+            ->condition('name', "breakgen", 'CONTAINS')
             ->execute();
 
         $imageStyles = $this->entityTypeManager->getStorage('image_style')
@@ -94,7 +94,7 @@ class ImageStyleGenerator
         $machineName = sprintf(
             '%s_%s_%s',
             $breakpointKey,
-            'dd_breakgen',
+            'breakgen',
             $groupName
         );
 

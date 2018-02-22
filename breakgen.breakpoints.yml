@@ -199,7 +199,7 @@ breakgen.laptop:
                     width: 426
                     height: 639
 
-dd_gen.desktop:
+breakgen.desktop:
     label: desktop
     mediaQuery: '(min-width: 1440px) and (max-width: 1919px)'
     weight: 5
