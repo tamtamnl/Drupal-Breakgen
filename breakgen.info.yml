@@ -1,5 +1,5 @@
-name: Dept Digital Breakpoint Generator
+name: Breakpoint Generator
 type: module
 description: Automatic breakpoint generator
 core: 8.x
-package: Dept Digital
+package: Development

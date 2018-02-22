@@ -10,10 +10,10 @@ use Drupal\Core\Routing\RouteMatchInterface;
 /**
  * Implements hook_help().
  */
-function dd_breakgen_help($route_name, RouteMatchInterface $route_match) {
+function breakgen_help($route_name, RouteMatchInterface $route_match) {
   switch ($route_name) {
     // Main module help for the dd_csp_generator module.
-    case 'help.page.dd_breakgen':
+    case 'help.page.breakgen':
       $output = '';
       $output .= '<h3>' . t('About') . '</h3>';
       $output .= '<p>' . t('Automatic breakpoint to image style generator') . '</p>';
