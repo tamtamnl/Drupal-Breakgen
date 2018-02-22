@@ -92,7 +92,7 @@ class ImageStyleGenerator
     ) {
         // Generate machine name
         $machineName = sprintf(
-            '%s.%s.%s',
+            '%s_%s_%s',
             $breakpointKey,
             'dd_breakgen',
             $groupName
