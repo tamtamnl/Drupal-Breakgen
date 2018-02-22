@@ -4,12 +4,8 @@
   "description": "",
   "keywords": ["Drupal"],
   "license": "GPL-2.0+",
-  "homepage": "https://www.drupal.org/project/dd_csp_generator",
+  "homepage": "https://www.tamtam.nl",
   "minimum-stability": "dev",
-  "support": {
-    "issues": "https://www.drupal.org/project/issues/dd_csp_generator",
-    "source": "http://cgit.drupalcode.org/dd_csp_generator"
-  },
   "require": {
 
   },
@@ -19,5 +15,9 @@
       "email": "loul@tamtam.nl",
       "role": "Developer"
     }
-  ]
+  ],
+  "support": {
+    "issues": "php@tamtam.nl",
+    "source": "https://github.com/tamtamnl/Drupal-Breakgen"
+  },
 }
