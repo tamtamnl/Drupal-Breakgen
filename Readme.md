@@ -7,7 +7,7 @@ Check the [dd_breakgen](https://bitbucket.org/tamtam-nl/dept-digital-breakgen) r
 
 ## Description
 
-The Pathauto module provides a new drush command (drush ddbg) which generate imagestyles based on your theme breakpoints.yml file
+The Breakgen module provides a new drush command (`drush ddbg`) which generate imagestyles based on your theme breakpoints.yml file
 
 ## Example dd_breakgen.breakpoint.yml file
 Please check for your own theme or directly use the dd_breakgen.breakpoint.yml inside your project. 
@@ -19,7 +19,7 @@ For example add the 16_9 in the cms /admin/config/media/crop
 Run the command `drush ddbg dd_breakgen`   
 
 Please note if you define your own *.breakpoints.yml file please clear **the cache** before running the `drush ddbg` command.
-this will read the breakpoints.yml file again after modifieng.
+Clearing the cache will read the breakpoints.yml file again after modifications.
 
 ## Mapping responsive images
 Here is how you get the desired output (no picture element) within Drupal:
