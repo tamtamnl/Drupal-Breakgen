@@ -1,5 +1,5 @@
 # 320 W
-dd_gen.mobile:
+breakgen.mobile:
     label: mobile
     mediaQuery: '(max-width: 479px)'
     weight: 0
@@ -42,7 +42,7 @@ dd_gen.mobile:
                   data:
                     width: 320
                     height: 480
-dd_gen.mobile_plus:
+breakgen.mobile_plus:
     label: mobile plus
     mediaQuery: '(min-width: 480px) and(max-width: 767px)'
     weight: 1
@@ -84,7 +84,7 @@ dd_gen.mobile_plus:
                   data:
                     width: 480
                     height: 720
-dd_gen.tablet_portrait:
+breakgen.tablet_portrait:
     label: tablet portrait
     mediaQuery: '(min-width: 768px) and (max-width: 1023px)'
     weight: 2
@@ -122,7 +122,7 @@ dd_gen.tablet_portrait:
                   data:
                     width: 384
                     height: 576
-dd_gen.tablet_landscape:
+breakgen.tablet_landscape:
     label: tablet landscape
     mediaQuery: '(min-width: 1024px) and (max-width: 1279px)'
     weight: 3
@@ -160,7 +160,7 @@ dd_gen.tablet_landscape:
                   data:
                     width: 384
                     height: 576
-dd_gen.laptop:
+breakgen.laptop:
     label: laptop
     mediaQuery: '(min-width: 1280px) and (max-width: 1439px)'
     weight: 4
@@ -199,7 +199,7 @@ dd_gen.laptop:
                     width: 426
                     height: 639
 
-dd_gen.desktop:
+breakgen.desktop:
     label: desktop
     mediaQuery: '(min-width: 1440px) and (max-width: 1919px)'
     weight: 5
@@ -237,7 +237,7 @@ dd_gen.desktop:
                   data:
                     width: 360
                     height: 540
-dd_gen.widescreen:
+breakgen.widescreen:
     label: widescreen
     mediaQuery: '(min-width: 1920px)'
     weight: 6
