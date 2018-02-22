@@ -1,6 +1,6 @@
-# dd_breakgen
+# Breakgen
 
-Check the [dd_breakgen](https://bitbucket.org/tamtam-nl/dept-digital-breakgen) repository for latest versions
+Check the [breakgen](https://github.com/tamtamnl/Drupal-Breakgen) repository for latest versions.
 
 ## Requirements
 - https://www.drupal.org/project/image_widget_crop
@@ -34,4 +34,5 @@ Here is how you get the desired output (no picture element) within Drupal:
 8. Adjust the Sizes value as needed. The default here 100vw is hard-coded for a good reason, it's a pretty sane default and works well in most situations. Customize this is you want even finer control. More on Sizes. Screenshot of an example Resposive Image Style
 9. Adjust your content type (or other entity) to use your new responsive image style either by altering the display formatter or handling programmatically. Adjust Entity Screenshot
 10. Verify results!
+
 For a thorough explanation of how all of the bits of the Responsive Image module work, see the documentation at admin/help/responsive_image with the Help module enabled.
