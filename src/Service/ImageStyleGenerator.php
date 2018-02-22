@@ -67,17 +67,19 @@ class ImageStyleGenerator
                     $data['style_effects']
                 );
 
-                foreach ($data['percentages'] as $percentage) {
-                    $modifier = str_replace('%', '', $percentage) / 100;
-                    $percentage = str_replace('%', '', $percentage);
+                if(isset($data['percentages'])){
+                    foreach ($data['percentages'] as $percentage) {
+                        $modifier = str_replace('%', '', $percentage) / 100;
+                        $percentage = str_replace('%', '', $percentage);
 
-                    $this->generateImageStyle(
-                        $key . ".$percentage",
-                        $breakpoint->getLabel()->__toString() . " ($percentage%)",
-                        $groupName,
-                        $data['style_effects'],
-                        $modifier
-                    );
+                        $this->generateImageStyle(
+                            $key . ".$percentage",
+                            $breakpoint->getLabel()->__toString() . " ($percentage%)",
+                            $groupName,
+                            $data['style_effects'],
+                            $modifier
+                        );
+                    }
                 }
             }
         }
