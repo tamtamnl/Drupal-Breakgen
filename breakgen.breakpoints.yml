@@ -25,7 +25,7 @@ breakgen.mobile:
                 - id: crop_crop
                   weight: -10
                   data:
-                    crop_type: '16_9'
+                    crop_type: '16:9'
                 - id: image_scale_and_crop
                   weight: 0
                   data:
@@ -68,7 +68,7 @@ breakgen.mobile_plus:
                 - id: crop_crop
                   weight: -10
                   data:
-                    crop_type: '16_9'
+                    crop_type: '16:9'
                 - id: image_scale_and_crop
                   weight: 0
                   data:
@@ -110,7 +110,7 @@ breakgen.tablet_portrait:
                 - id: crop_crop
                   weight: -10
                   data:
-                    crop_type: '16_9'
+                    crop_type: '16:9'
                 - id: image_scale_and_crop
                   weight: 0
                   data:
@@ -148,7 +148,7 @@ breakgen.tablet_landscape:
                 - id: crop_crop
                   weight: -10
                   data:
-                    crop_type: '16_9'
+                    crop_type: '16:9'
                 - id: image_scale_and_crop
                   weight: 0
                   data:
@@ -186,7 +186,7 @@ breakgen.laptop:
                 - id: crop_crop
                   weight: -10
                   data:
-                    crop_type: '16_9'
+                    crop_type: '16:9'
                 - id: image_scale_and_crop
                   weight: 0
                   data:
@@ -225,7 +225,7 @@ breakgen.desktop:
                 - id: crop_crop
                   weight: -10
                   data:
-                    crop_type: '16_9'
+                    crop_type: '16:9'
                 - id: image_scale_and_crop
                   weight: 0
                   data:
@@ -263,7 +263,7 @@ breakgen.widescreen:
                 - id: crop_crop
                   weight: -10
                   data:
-                    crop_type: '16_9'
+                    crop_type: '16:9'
                 - id: image_scale_and_crop
                   weight: 0
                   data:
