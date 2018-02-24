@@ -6,3 +6,4 @@ services:
     - '@plugin.manager.image.effect'
     - '@entity_type.manager'
     - '@theme.manager'
+    - '@module_handler'
