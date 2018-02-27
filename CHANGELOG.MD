@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Added example module "breakgen_crop" for 3rd party integration.
 - Added missing PHP doc annotations.
 - Added command to clear all breakgen related entities.
+- Added post save hook for 3rd party extensions.
 
 ### Fixed
 - Fixed warning when percentages are not set on breakpoint.

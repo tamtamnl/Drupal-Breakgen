@@ -29,3 +29,12 @@ function breakgen_pre_clear_image_styles()
 {
     // E.G: clear any entities related to breakgen image styles
 }
+
+/**
+ * Hook that fires before breakgen clears all image styles
+ * related to breakgen.
+ */
+function hook_breakgen_post_save_image_styles($key, &$breakpoint, array &$breakgen)
+{
+
+}

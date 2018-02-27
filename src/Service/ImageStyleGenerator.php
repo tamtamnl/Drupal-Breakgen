@@ -15,6 +15,7 @@ class ImageStyleGenerator
     const EFFECT_ALTER_HOOK = 'breakgen_image_style_effect_alter';
     const IMAGE_STYLE_ALTER_HOOK = 'breakgen_image_style_alter';
     const PRE_CLEAR_HOOK = 'breakgen_pre_clear_image_styles';
+    const POST_SAVE_HOOK = 'breakgen_post_save_image_styles';
 
     private $breakpointManager;
     private $imageEffectManager;
@@ -109,6 +110,8 @@ class ImageStyleGenerator
                         $data['style_effects']
                     );
                 }
+
+                $this->moduleHandler->invokeAll(self::POST_SAVE_HOOK, [$key, &$breakpoint, &$breakgen]);
             }
         }
     }
