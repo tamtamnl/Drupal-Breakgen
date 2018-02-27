@@ -7,6 +7,8 @@ breakgen.mobile:
         - 1x
     breakgen:
         16x9_scale:
+            responsive_image: true
+            responsive_image_fallback: true
             percentages:
                 - 66.666666667%
                 - 50%
@@ -50,6 +52,7 @@ breakgen.mobile_plus:
         - 1x
     breakgen:
         16x9_scale:
+            responsive_image: true
             percentages:
                 - 66.666666667%
                 - 50%
@@ -92,6 +95,7 @@ breakgen.tablet_portrait:
         - 1x
     breakgen:
         16x9_scale:
+            responsive_image: true
             percentages:
                 - 66.666666667%
                 - 50%
@@ -130,6 +134,7 @@ breakgen.tablet_landscape:
         - 1x
     breakgen:
         16x9_scale:
+            responsive_image: true
             percentages:
                 - 66.666666667%
                 - 50%
@@ -168,6 +173,7 @@ breakgen.laptop:
         - 1x
     breakgen:
         16x9_scale:
+            responsive_image: true
             percentages:
                 - 66.666666667%
                 - 50%
@@ -207,6 +213,7 @@ breakgen.desktop:
         - 1x
     breakgen:
         16x9_scale:
+            responsive_image: true
             percentages:
                 - 66.666666667%
                 - 50%
@@ -245,6 +252,7 @@ breakgen.widescreen:
         - 1x
     breakgen:
         16x9_scale:
+            responsive_image: true
             percentages:
                 - 66.666666667%
                 - 50%
