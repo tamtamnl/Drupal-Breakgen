@@ -1,0 +1,67 @@
+<?php
+
+
+function breakgen_responsive_image_breakgen_post_save_image_styles($key, &$breakpoint, array &$breakgen){
+    foreach ($breakgen as $groupName => $breakgenGroupConfiguration){
+        if($breakgenGroupConfiguration['responsive_image'] === true){
+
+            $imageStyleMachineName = $key . '_breakgen_' . $groupName;
+            $machineName = 'breakgen_responsive_image_' . $groupName;
+            $fallbackMachineName = '_original image_';
+            if($breakgenGroupConfiguration['responsive_image_fallback'] === true){
+                $fallbackMachineName = $imageStyleMachineName;
+            }
+
+            $responsiveImageStyle = \Drupal\responsive_image\Entity\ResponsiveImageStyle::load($machineName);
+
+            if($responsiveImageStyle === null){
+                breakgen_responsive_image_create($machineName, $groupName, $imageStyleMachineName, $fallbackMachineName);
+            }else{
+                $imageStyleMappings = $responsiveImageStyle->get('image_style_mappings');
+                $imageStyleMappings[0]['image_mapping']['sizes_image_styles'][] = $imageStyleMachineName;
+                $responsiveImageStyle->set('image_style_mappings', $imageStyleMappings);
+                if($fallbackMachineName !== '_original image_'){
+                    $responsiveImageStyle->set('fallback_image_style', $fallbackMachineName);
+                }
+                $responsiveImageStyle->save();
+            }
+        }
+    }
+}
+
+function breakgen_responsive_image_create($machineName, $groupName, $imageStyleMachineName, $fallbackMachineName){
+    $responsiveImageStyle = \Drupal\responsive_image\Entity\ResponsiveImageStyle::create([
+        'id' => $machineName,
+        'label' => "Breakgen: $groupName",
+        'breakpoint_group' => 'responsive_image',
+        'image_style_mappings' => [
+            [
+                'breakpoint_id' => 'responsive_image.viewport_sizing',
+                'multiplier' => '1x',
+                'image_mapping_type' => 'sizes',
+                'image_mapping' => [
+                    'sizes' => '100 vw',
+                    'sizes_image_styles' => [
+                        $imageStyleMachineName
+                    ]
+                ]
+            ]
+        ],
+        'fallback_image_style' => $fallbackMachineName,
+    ]);
+    $responsiveImageStyle->save();
+}
+
+/**
+ * Clear all generated responsive image styles.
+ */
+function breakgen_responsive_image_breakgen_pre_clear_image_styles()
+{
+    $cropTypeIds = \Drupal::entityQuery('crop_type')
+        ->condition('id', "breakgen_responsive_image_", 'CONTAINS')
+        ->execute();
+
+    $cropTypes = \Drupal\crop\Entity\CropType::loadMultiple($cropTypeIds);
+
+    \Drupal::entityTypeManager()->getStorage('crop_type')->delete($cropTypes);
+}
