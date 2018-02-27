@@ -17,6 +17,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fixed warning when percentages are not set on breakpoint.
 - Fixed crop_type definition having "x" instead of ":" for aspect ratio
 
+### Changed
+- Changed example module naming to be more generic
+
 ## 0.0.1 - 2014-05-31
 ### Added
 - Ability to generate image styles from a breakpoint file.

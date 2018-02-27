@@ -1,4 +1,4 @@
-name: Breakpoint Crop Widget Extension
+name: Breakgen Crop Widget Extension
 type: module
 description: Breakgen extension for creating image_widget_crop crop types.
 core: 8.x

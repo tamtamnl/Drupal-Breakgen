@@ -1,6 +1,6 @@
-name: Breakgen Responsive Image generator
+name: Breakgen Responsive Image Extension
 type: module
-description: Breakgen extension for creating image_widget_crop crop types.
+description: Breakgen extension for creating responsive image styles.
 core: 8.x
 package: Development
 dependencies:
