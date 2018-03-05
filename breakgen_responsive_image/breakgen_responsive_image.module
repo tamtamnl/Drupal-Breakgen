@@ -4,35 +4,53 @@
 function breakgen_responsive_image_breakgen_post_save_image_styles($key, &$breakpoint, array &$breakgen){
     foreach ($breakgen as $groupName => $breakgenGroupConfiguration){
         if($breakgenGroupConfiguration['responsive_image'] === true){
+            $isFallback = (isset($breakgenGroupConfiguration['responsive_image_fallback']) &&
+                $breakgenGroupConfiguration['responsive_image_fallback'] === true);
 
             $imageStyleMachineName = $key . '_breakgen_' . $groupName;
-            $machineName = 'breakgen_responsive_image_' . $groupName;
-            $fallbackMachineName = '_original image_';
-            if($breakgenGroupConfiguration['responsive_image_fallback'] === true){
-                $fallbackMachineName = $imageStyleMachineName;
-            }
+            breakgen_responsive_image_merge($imageStyleMachineName, $groupName, $isFallback);
 
-            $responsiveImageStyle = \Drupal\responsive_image\Entity\ResponsiveImageStyle::load($machineName);
-
-            if($responsiveImageStyle === null){
-                breakgen_responsive_image_create($machineName, $groupName, $imageStyleMachineName, $fallbackMachineName);
-            }else{
-                $imageStyleMappings = $responsiveImageStyle->get('image_style_mappings');
-                $imageStyleMappings[0]['image_mapping']['sizes_image_styles'][] = $imageStyleMachineName;
-                $responsiveImageStyle->set('image_style_mappings', $imageStyleMappings);
-                if($fallbackMachineName !== '_original image_'){
-                    $responsiveImageStyle->set('fallback_image_style', $fallbackMachineName);
+            // Generate deviation of image by percentage
+            if (isset($breakgenGroupConfiguration['percentages'])) {
+                foreach($breakgenGroupConfiguration['percentages'] as $percentage){
+                    $imageStyleMachineName = $key . '.' . str_replace('%', '', $percentage)
+                        . '_breakgen_' . $groupName;
+                    $deviationGroupName = $groupName . '_' . str_replace('%', '', $percentage);
+                    breakgen_responsive_image_merge($imageStyleMachineName, $deviationGroupName, $isFallback);
                 }
-                $responsiveImageStyle->save();
             }
         }
     }
 }
 
+function breakgen_responsive_image_merge($imageStyleMachineName, $groupName, $isFallback){
+    $machineName = 'breakgen_responsive_image_' . $groupName;
+    $fallbackMachineName = '_original image_';
+
+    if($isFallback){
+        $fallbackMachineName = $imageStyleMachineName;
+    }
+
+    $responsiveImageStyle = \Drupal\responsive_image\Entity\ResponsiveImageStyle::load($machineName);
+
+    if($responsiveImageStyle === null){
+        breakgen_responsive_image_create($machineName, $groupName, $imageStyleMachineName, $fallbackMachineName);
+    }else{
+        $imageStyleMappings = $responsiveImageStyle->get('image_style_mappings');
+        $imageStyleMappings[0]['image_mapping']['sizes_image_styles'][] = $imageStyleMachineName;
+        $responsiveImageStyle->set('image_style_mappings', $imageStyleMappings);
+        if($fallbackMachineName !== '_original image_'){
+            $responsiveImageStyle->set('fallback_image_style', $fallbackMachineName);
+        }
+        $responsiveImageStyle->save();
+    }
+}
+
 function breakgen_responsive_image_create($machineName, $groupName, $imageStyleMachineName, $fallbackMachineName){
+    $label = str_replace('.', ' ', str_replace('_', ' ', $groupName));
     $responsiveImageStyle = \Drupal\responsive_image\Entity\ResponsiveImageStyle::create([
         'id' => $machineName,
-        'label' => "Breakgen: $groupName",
+        'label' => "Breakgen: ". $label,
         'breakpoint_group' => 'responsive_image',
         'image_style_mappings' => [
             [
@@ -57,11 +75,11 @@ function breakgen_responsive_image_create($machineName, $groupName, $imageStyleM
  */
 function breakgen_responsive_image_breakgen_pre_clear_image_styles()
 {
-    $cropTypeIds = \Drupal::entityQuery('crop_type')
+    $imageStyleIds = \Drupal::entityQuery('responsive_image_style')
         ->condition('id', "breakgen_responsive_image_", 'CONTAINS')
         ->execute();
 
-    $cropTypes = \Drupal\crop\Entity\CropType::loadMultiple($cropTypeIds);
+    $responsiveImageStyles = \Drupal\responsive_image\Entity\ResponsiveImageStyle::loadMultiple($imageStyleIds);
 
-    \Drupal::entityTypeManager()->getStorage('crop_type')->delete($cropTypes);
+    \Drupal::entityTypeManager()->getStorage('responsive_image_style')->delete($responsiveImageStyles);
 }
