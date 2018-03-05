@@ -1,6 +1,12 @@
 <?php
 
-
+/**
+ * Listen to breakgen generation and create responsive image styles accordingly.
+ *
+ * @param $key
+ * @param $breakpoint
+ * @param array $breakgen
+ */
 function breakgen_responsive_image_breakgen_post_save_image_styles($key, &$breakpoint, array &$breakgen){
     foreach ($breakgen as $groupName => $breakgenGroupConfiguration){
         if($breakgenGroupConfiguration['responsive_image'] === true){
@@ -23,6 +29,13 @@ function breakgen_responsive_image_breakgen_post_save_image_styles($key, &$break
     }
 }
 
+/**
+ * Add information to existing image style or create image style.
+ *
+ * @param $imageStyleMachineName
+ * @param $groupName
+ * @param $isFallback
+ */
 function breakgen_responsive_image_merge($imageStyleMachineName, $groupName, $isFallback){
     $machineName = 'breakgen_responsive_image_' . $groupName;
     $fallbackMachineName = '_original image_';
@@ -46,6 +59,14 @@ function breakgen_responsive_image_merge($imageStyleMachineName, $groupName, $is
     }
 }
 
+/**
+ * Create base responsive image style.
+ *
+ * @param $machineName
+ * @param $groupName
+ * @param $imageStyleMachineName
+ * @param $fallbackMachineName
+ */
 function breakgen_responsive_image_create($machineName, $groupName, $imageStyleMachineName, $fallbackMachineName){
     $label = str_replace('.', ' ', str_replace('_', ' ', $groupName));
     $responsiveImageStyle = \Drupal\responsive_image\Entity\ResponsiveImageStyle::create([
