@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+- Changed code style from PSR-2 to Drupal code style.
+
 ### Added
 - Added hooks for 3rd party extensions.
 - Added example module "breakgen_crop" for 3rd party integration.

@@ -7,26 +7,30 @@
  * @param $breakpoint
  * @param array $breakgen
  */
-function breakgen_responsive_image_breakgen_post_save_image_styles($key, &$breakpoint, array &$breakgen){
-    foreach ($breakgen as $groupName => $breakgenGroupConfiguration){
-        if($breakgenGroupConfiguration['responsive_image'] === true){
-            $isFallback = (isset($breakgenGroupConfiguration['responsive_image_fallback']) &&
-                $breakgenGroupConfiguration['responsive_image_fallback'] === true);
+function breakgen_responsive_image_breakgen_post_save_image_styles(
+  $key,
+  &$breakpoint,
+  array &$breakgen
+) {
+  foreach ($breakgen as $groupName => $breakgenGroupConfiguration) {
+    if ($breakgenGroupConfiguration['responsive_image'] === TRUE) {
+      $isFallback = (isset($breakgenGroupConfiguration['responsive_image_fallback']) &&
+        $breakgenGroupConfiguration['responsive_image_fallback'] === TRUE);
 
-            $imageStyleMachineName = $key . '_breakgen_' . $groupName;
-            breakgen_responsive_image_merge($imageStyleMachineName, $groupName, $isFallback);
+      $imageStyleMachineName = $key . '_breakgen_' . $groupName;
+      breakgen_responsive_image_merge($imageStyleMachineName, $groupName, $isFallback);
 
-            // Generate deviation of image by percentage
-            if (isset($breakgenGroupConfiguration['percentages'])) {
-                foreach($breakgenGroupConfiguration['percentages'] as $percentage){
-                    $imageStyleMachineName = $key . '.' . str_replace('%', '', $percentage)
-                        . '_breakgen_' . $groupName;
-                    $deviationGroupName = $groupName . '_' . str_replace('%', '', $percentage);
-                    breakgen_responsive_image_merge($imageStyleMachineName, $deviationGroupName, $isFallback);
-                }
-            }
+      // Generate deviation of image by percentage.
+      if (isset($breakgenGroupConfiguration['percentages'])) {
+        foreach ($breakgenGroupConfiguration['percentages'] as $percentage) {
+          $imageStyleMachineName = $key . '.' . str_replace('%', '', $percentage)
+            . '_breakgen_' . $groupName;
+          $deviationGroupName = $groupName . '_' . str_replace('%', '', $percentage);
+          breakgen_responsive_image_merge($imageStyleMachineName, $deviationGroupName, $isFallback);
         }
+      }
     }
+  }
 }
 
 /**
@@ -36,27 +40,32 @@ function breakgen_responsive_image_breakgen_post_save_image_styles($key, &$break
  * @param $groupName
  * @param $isFallback
  */
-function breakgen_responsive_image_merge($imageStyleMachineName, $groupName, $isFallback){
-    $machineName = 'breakgen_responsive_image_' . $groupName;
-    $fallbackMachineName = '_original image_';
+function breakgen_responsive_image_merge(
+  $imageStyleMachineName,
+  $groupName,
+  $isFallback
+) {
+  $machineName = 'breakgen_responsive_image_' . $groupName;
+  $fallbackMachineName = '_original image_';
 
-    if($isFallback){
-        $fallbackMachineName = $imageStyleMachineName;
+  if ($isFallback) {
+    $fallbackMachineName = $imageStyleMachineName;
+  }
+
+  $responsiveImageStyle = \Drupal\responsive_image\Entity\ResponsiveImageStyle::load($machineName);
+
+  if ($responsiveImageStyle === NULL) {
+    breakgen_responsive_image_create($machineName, $groupName, $imageStyleMachineName, $fallbackMachineName);
+  }
+  else {
+    $imageStyleMappings = $responsiveImageStyle->get('image_style_mappings');
+    $imageStyleMappings[0]['image_mapping']['sizes_image_styles'][] = $imageStyleMachineName;
+    $responsiveImageStyle->set('image_style_mappings', $imageStyleMappings);
+    if ($fallbackMachineName !== '_original image_') {
+      $responsiveImageStyle->set('fallback_image_style', $fallbackMachineName);
     }
-
-    $responsiveImageStyle = \Drupal\responsive_image\Entity\ResponsiveImageStyle::load($machineName);
-
-    if($responsiveImageStyle === null){
-        breakgen_responsive_image_create($machineName, $groupName, $imageStyleMachineName, $fallbackMachineName);
-    }else{
-        $imageStyleMappings = $responsiveImageStyle->get('image_style_mappings');
-        $imageStyleMappings[0]['image_mapping']['sizes_image_styles'][] = $imageStyleMachineName;
-        $responsiveImageStyle->set('image_style_mappings', $imageStyleMappings);
-        if($fallbackMachineName !== '_original image_'){
-            $responsiveImageStyle->set('fallback_image_style', $fallbackMachineName);
-        }
-        $responsiveImageStyle->save();
-    }
+    $responsiveImageStyle->save();
+  }
 }
 
 /**
@@ -67,40 +76,46 @@ function breakgen_responsive_image_merge($imageStyleMachineName, $groupName, $is
  * @param $imageStyleMachineName
  * @param $fallbackMachineName
  */
-function breakgen_responsive_image_create($machineName, $groupName, $imageStyleMachineName, $fallbackMachineName){
-    $label = str_replace('.', ' ', str_replace('_', ' ', $groupName));
-    $responsiveImageStyle = \Drupal\responsive_image\Entity\ResponsiveImageStyle::create([
-        'id' => $machineName,
-        'label' => "Breakgen: ". $label,
-        'breakpoint_group' => 'responsive_image',
-        'image_style_mappings' => [
-            [
-                'breakpoint_id' => 'responsive_image.viewport_sizing',
-                'multiplier' => '1x',
-                'image_mapping_type' => 'sizes',
-                'image_mapping' => [
-                    'sizes' => '100 vw',
-                    'sizes_image_styles' => [
-                        $imageStyleMachineName
-                    ]
-                ]
-            ]
+function breakgen_responsive_image_create(
+  $machineName,
+  $groupName,
+  $imageStyleMachineName,
+  $fallbackMachineName
+) {
+  $label = str_replace('.', ' ', str_replace('_', ' ', $groupName));
+  $responsiveImageStyle = \Drupal\responsive_image\Entity\ResponsiveImageStyle::create([
+    'id'                   => $machineName,
+    'label'                => "Breakgen: " . $label,
+    'breakpoint_group'     => 'responsive_image',
+    'image_style_mappings' => [
+      [
+        'breakpoint_id'      => 'responsive_image.viewport_sizing',
+        'multiplier'         => '1x',
+        'image_mapping_type' => 'sizes',
+        'image_mapping'      => [
+          'sizes'              => '100 vw',
+          'sizes_image_styles' => [
+            $imageStyleMachineName,
+          ],
         ],
-        'fallback_image_style' => $fallbackMachineName,
-    ]);
-    $responsiveImageStyle->save();
+      ],
+    ],
+    'fallback_image_style' => $fallbackMachineName,
+  ]);
+  $responsiveImageStyle->save();
 }
 
 /**
  * Clear all generated responsive image styles.
  */
-function breakgen_responsive_image_breakgen_pre_clear_image_styles()
-{
-    $imageStyleIds = \Drupal::entityQuery('responsive_image_style')
-        ->condition('id', "breakgen_responsive_image_", 'CONTAINS')
-        ->execute();
+function breakgen_responsive_image_breakgen_pre_clear_image_styles() {
+  $imageStyleIds = \Drupal::entityQuery('responsive_image_style')
+    ->condition('id', "breakgen_responsive_image_", 'CONTAINS')
+    ->execute();
 
-    $responsiveImageStyles = \Drupal\responsive_image\Entity\ResponsiveImageStyle::loadMultiple($imageStyleIds);
+  $responsiveImageStyles = \Drupal\responsive_image\Entity\ResponsiveImageStyle::loadMultiple($imageStyleIds);
 
-    \Drupal::entityTypeManager()->getStorage('responsive_image_style')->delete($responsiveImageStyles);
+  \Drupal::entityTypeManager()
+    ->getStorage('responsive_image_style')
+    ->delete($responsiveImageStyles);
 }

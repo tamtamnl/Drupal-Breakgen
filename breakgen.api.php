@@ -1,40 +1,46 @@
 <?php
 
 /**
- *  Hook for altering the image style before breakgen saves it.
+ * Hook for altering the image style before breakgen saves it.
  *
  * @param \Drupal\image\Entity\ImageStyle $imageStyle
+ *   Image style to alter.
  */
 function hook_breakgen_image_style_alter(
-    \Drupal\image\Entity\ImageStyle &$imageStyle
+  \Drupal\image\Entity\ImageStyle &$imageStyle
 ) {
-    // E.G: change properties within the image style
+  // E.G: change properties within the image style.
 }
 
 /**
- * Hook for altering a image style effect before breakgen add it to the
- * image style.
- * related to breakgen.
+ * Hook for altering a image style effect before breakgen adds.
  */
-function hook_breakgen_image_style_effect_alter(array &$effectConfiguration)
-{
-    // E.G: modify effect before it gets added
+function hook_breakgen_image_style_effect_alter(array &$effectConfiguration) {
+  // E.G: modify effect before it gets added.
 }
 
 /**
- * Hook that fires before breakgen clears all image styles
- * related to breakgen.
+ * Hook that fires before breakgen clears all image styles related to breakgen.
  */
-function breakgen_pre_clear_image_styles()
-{
-    // E.G: clear any entities related to breakgen image styles
+function breakgen_pre_clear_image_styles() {
+  // E.G: clear any entities related to breakgen image styles.
 }
 
 /**
- * Hook that fires before breakgen clears all image styles
- * related to breakgen.
+ * Hook that fires before breakgen clears all image styles related to breakgen.
+ *
+ * @param mixed $key
+ *   Breakgen configuration key.
+ * @param \Drupal\breakpoint\BreakpointInterface $breakpoint
+ *   Array of breakpoint plugins keyed by machine name.
+ *   TODO: This description might be incorrect.
+ * @param array $breakgen
+ *   Breakgen configuration from breakgen theme file.
  */
-function hook_breakgen_post_save_image_styles($key, &$breakpoint, array &$breakgen)
-{
-
+function hook_breakgen_post_save_image_styles(
+  $key,
+  Drupal\breakpoint\BreakpointInterface &$breakpoint,
+  array &$breakgen
+) {
+  // E.G: create an entity that depends on the image style.
 }

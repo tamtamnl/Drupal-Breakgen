@@ -3,36 +3,63 @@
 Check the [breakgen](https://github.com/tamtamnl/Drupal-Breakgen) repository for latest versions.
 
 ## Requirements
-- https://www.drupal.org/project/image_widget_crop
+Breakgen has no requirements and support all default core image styles out of the box. Breakgen provides
+example/extension module for integration with other contrib modules.
 
 ## Description
-
-The Breakgen module provides a new drush command (`drush bg`) which generate imagestyles based on your theme breakpoints.yml file
+The Breakgen module provides a new drush command (`drush bg`) which generates image styles based on your theme `breakpoints.yml` file
 
 ## Example breakgen.breakpoint.yml file
-Please check for your own theme or directly use the breakgen.breakpoint.yml inside your project. 
+Please check or modify your own theme breakpoint.yml file. Or directly use the `breakgen.breakpoint.yml` inside your project. 
 
-## Add the disered crop types
-For example add the 16_9 in the cms /admin/config/media/crop
-
-## Howto generate
+## How-to generate
 Run the command `drush bg breakgen`   
 
 Please note if you define your own *.breakpoints.yml file please clear **the cache** before running the `drush bg` command.
 Clearing the cache will read the breakpoints.yml file again after modifications.
 
 ## Mapping responsive images
-Here is how you get the desired output (no picture element) within Drupal:
+There is an example module called `breakgen_responsive_images` that serves as an example responsive image style generator.
 
-1. Skip creating specific breakpoints in your theme, they aren't needed with this approach.
-2. Setup your different image styles at admin/config/media/image-styles. Usually something like, Author Small, Author Medium and Author Large.
-3. Create a responsive image style at admin/config/media/responsive-image-style. Make sure the Responsive Image module is enabled first. Screenshot of responsive image style creation interface
-4. Ensure "Responsive Image" is selected for the "Breakpoint group".
-5. Choose a suitable "Fallback image style". Click "Save". The following screen is where the secret sauce is.
-6. Under the "1x Viewport Sizing []" fieldset, Select "Select multiple image styles and use the sizes attribute."
-7. Select each of Image styles you'd like to use.
-8. Adjust the Sizes value as needed. The default here 100vw is hard-coded for a good reason, it's a pretty sane default and works well in most situations. Customize this is you want even finer control. More on Sizes. Screenshot of an example Resposive Image Style
-9. Adjust your content type (or other entity) to use your new responsive image style either by altering the display formatter or handling programmatically. Adjust Entity Screenshot
-10. Verify results!
+## Configuration Example
+Breakgen extends the already existing drupal breakpoint config by adding the `breakgen` key.
+All configuration for breakgen should be done under this key.
 
-For a thorough explanation of how all of the bits of the Responsive Image module work, see the documentation at admin/help/responsive_image with the Help module enabled.
+``` yml
+
+breakgen.mobile:
+    label: mobile
+    mediaQuery: '(max-width: 479px)'
+    weight: 0
+    multipliers:
+        - 1x
+    breakgen:
+        16x9_scale: # Breakgen group name
+            responsive_image: true # breakgen_responsive_image extension mapping.
+            responsive_image_fallback: true # breakgen_responsive_image extension mapping.
+            percentages: # Percentage deviation mapping, allows you to resize the original.
+                - 66.666666667%
+                - 50%
+                - 33.333333333%
+            style_effects: # Style effects as array, these are mapped 1:1 from a style effect configuration.
+                - id: image_scale
+                  data:
+                    width: 320
+                    height: 240
+        16x9_crop: # Breakgen group name for seconds group.
+            percentages: # Percentage deviation but for seconds group.
+                - 66.666666667%
+                - 50%
+                - 33.333333333%
+            style_effects: # Style effects for seconds group.
+                - id: crop_crop
+                  weight: -10
+                  data:
+                    crop_type: '16:9' # Crop type mapping for image_widget_crop
+                - id: image_scale_and_crop
+                  weight: 0
+                  data:
+                    width: 320
+                    height: 180
+
+```
