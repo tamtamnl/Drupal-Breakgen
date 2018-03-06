@@ -32,8 +32,7 @@ function breakgen_pre_clear_image_styles() {
  * @param mixed $key
  *   Breakgen configuration key.
  * @param \Drupal\breakpoint\BreakpointInterface $breakpoint
- *   Array of breakpoint plugins keyed by machine name.
- *   TODO: This description might be incorrect.
+ *   Breakpoint Interface of plugin.
  * @param array $breakgen
  *   Breakgen configuration from breakgen theme file.
  */

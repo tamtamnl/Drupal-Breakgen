@@ -107,8 +107,7 @@ class ImageStyleGenerator {
    * @param string $key
    *   Breakgen configuration key.
    * @param \Drupal\breakpoint\BreakpointInterface $breakpoint
-   *   Array of breakpoint plugins keyed by machine name.
-   *   TODO: This description might be incorrect.
+   *   Breakpoint Interface of plugin.
    */
   private function generateImagesStyles($key, BreakpointInterface $breakpoint) {
     // If this breakpoint has breakgen mapping.
@@ -151,8 +150,7 @@ class ImageStyleGenerator {
    * @param string $groupName
    *   Breakgen group name.
    * @param \Drupal\breakpoint\BreakpointInterface $breakpoint
-   *   Array of breakpoint plugins keyed by machine name.
-   *   TODO: This description might be incorrect.
+   *   Breakpoint Interface of plugin.
    * @param array $styleEffects
    *   Array of style effects.
    */
