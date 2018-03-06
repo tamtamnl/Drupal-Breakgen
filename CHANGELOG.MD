@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Added command to clear all breakgen related entities.
 - Added post save hook for 3rd party extensions.
 - Added example module "breakgen_responsive_image" for responsive image generation.
-- Added breakgen_responsive_image to breakgen file.
+- Added breakgen_responsive_image and breakgen_responsive_image_fallback to breakgen file.
 
 ### Fixed
 - Fixed warning when percentages are not set on breakpoint.
