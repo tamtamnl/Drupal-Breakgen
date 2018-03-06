@@ -8,7 +8,6 @@ use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Theme\ThemeManager;
 use Drupal\image\Entity\ImageStyle;
-use Drupal\image\ImageEffectManager;
 
 /**
  * Class ImageStyleGenerator.
@@ -30,8 +29,6 @@ class ImageStyleGenerator {
 
   private $breakpointManager;
 
-  private $imageEffectManager;
-
   private $entityTypeManager;
 
   private $themeManager;
@@ -43,8 +40,6 @@ class ImageStyleGenerator {
    *
    * @param \Drupal\breakpoint\BreakpointManager $breakpointManager
    *   Breakpoint manager for retrieving breakpoint plugin groups.
-   * @param \Drupal\image\ImageEffectManager $imageEffectManager
-   *   TODO: unused class.
    * @param \Drupal\Core\Entity\EntityTypeManager $entityTypeManager
    *   EntityTypeManager to save entities to storage.
    * @param \Drupal\Core\Theme\ThemeManager $themeManager
@@ -54,13 +49,11 @@ class ImageStyleGenerator {
    */
   public function __construct(
     BreakpointManager $breakpointManager,
-    ImageEffectManager $imageEffectManager,
     EntityTypeManager $entityTypeManager,
     ThemeManager $themeManager,
     ModuleHandlerInterface $moduleHandler
   ) {
     $this->breakpointManager = $breakpointManager;
-    $this->imageEffectManager = $imageEffectManager;
     $this->entityTypeManager = $entityTypeManager;
     $this->themeManager = $themeManager;
     $this->moduleHandler = $moduleHandler;
