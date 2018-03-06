@@ -1,4 +1,3 @@
-# 320 W
 breakgen.mobile:
     label: mobile
     mediaQuery: '(max-width: 479px)'

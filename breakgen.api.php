@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Breakgen API file describing the API hooks.
+ */
+
+/**
  * Hook for altering the image style before breakgen saves it.
  *
  * @param \Drupal\image\Entity\ImageStyle $imageStyle
@@ -14,6 +19,9 @@ function hook_breakgen_image_style_alter(
 
 /**
  * Hook for altering a image style effect before breakgen adds.
+ *
+ * @param array $effectConfiguration
+ *   Array of configuration values of image styles.
  */
 function hook_breakgen_image_style_effect_alter(array &$effectConfiguration) {
   // E.G: modify effect before it gets added.

@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * @file
+ * Breakgen image_widget_crop extension file.
+ *
+ * Breakgen crop extension file. In charge of creating
+ * crop types for image_widget_crop that are related to breakgen
+ * image style mapping.
+ */
+
 use Drupal\crop\Entity\CropType;
 
 /**

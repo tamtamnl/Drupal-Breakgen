@@ -1,11 +1,25 @@
 <?php
 
 /**
+ * @file
+ * Breakgen responsive_image extension file.
+ *
+ * Breakgen responsive image file. In charge of creating
+ * responsive images for responsive_image module that are related to breakgen
+ * image style mapping.
+ */
+
+use Drupal\responsive_image\Entity\ResponsiveImageStyle;
+
+/**
  * Listen to breakgen generation and create responsive image styles accordingly.
  *
- * @param $key
- * @param $breakpoint
+ * @param string $key
+ *   Breakgen configuration key.
+ * @param \Drupal\breakpoint\BreakpointInterface $breakpoint
+ *   Breakpoint Interface of plugin.
  * @param array $breakgen
+ *   Breakgen configuration from breakgen theme file.
  */
 function breakgen_responsive_image_breakgen_post_save_image_styles(
   $key,
@@ -36,9 +50,12 @@ function breakgen_responsive_image_breakgen_post_save_image_styles(
 /**
  * Add information to existing image style or create image style.
  *
- * @param $imageStyleMachineName
- * @param $groupName
- * @param $isFallback
+ * @param string $imageStyleMachineName
+ *   Machine name of a image style.
+ * @param string $groupName
+ *   Breakgen group name.
+ * @param bool $isFallback
+ *   Whether or not $imageStyleMachineName is also the fallback image.
  */
 function breakgen_responsive_image_merge(
   $imageStyleMachineName,
@@ -52,7 +69,7 @@ function breakgen_responsive_image_merge(
     $fallbackMachineName = $imageStyleMachineName;
   }
 
-  $responsiveImageStyle = \Drupal\responsive_image\Entity\ResponsiveImageStyle::load($machineName);
+  $responsiveImageStyle = ResponsiveImageStyle::load($machineName);
 
   if ($responsiveImageStyle === NULL) {
     breakgen_responsive_image_create($machineName, $groupName, $imageStyleMachineName, $fallbackMachineName);
@@ -71,10 +88,14 @@ function breakgen_responsive_image_merge(
 /**
  * Create base responsive image style.
  *
- * @param $machineName
- * @param $groupName
- * @param $imageStyleMachineName
- * @param $fallbackMachineName
+ * @param string $machineName
+ *   Machine name of the responsive image style.
+ * @param string $groupName
+ *   Breakgen group name.
+ * @param string $imageStyleMachineName
+ *   Machine name of a image style to add to the responsive image style.
+ * @param string $fallbackMachineName
+ *   Machine name for the fallback image.
  */
 function breakgen_responsive_image_create(
   $machineName,
@@ -83,7 +104,7 @@ function breakgen_responsive_image_create(
   $fallbackMachineName
 ) {
   $label = str_replace('.', ' ', str_replace('_', ' ', $groupName));
-  $responsiveImageStyle = \Drupal\responsive_image\Entity\ResponsiveImageStyle::create([
+  $responsiveImageStyle = ResponsiveImageStyle::create([
     'id'                   => $machineName,
     'label'                => "Breakgen: " . $label,
     'breakpoint_group'     => 'responsive_image',
@@ -113,7 +134,7 @@ function breakgen_responsive_image_breakgen_pre_clear_image_styles() {
     ->condition('id', "breakgen_responsive_image_", 'CONTAINS')
     ->execute();
 
-  $responsiveImageStyles = \Drupal\responsive_image\Entity\ResponsiveImageStyle::loadMultiple($imageStyleIds);
+  $responsiveImageStyles = ResponsiveImageStyle::loadMultiple($imageStyleIds);
 
   \Drupal::entityTypeManager()
     ->getStorage('responsive_image_style')
