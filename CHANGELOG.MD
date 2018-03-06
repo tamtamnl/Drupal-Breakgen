@@ -4,7 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## Unreleased
+
+## [0.0.2] - 2018-02-22
 ### Changed
 - Changed code style from PSR-2 to Drupal code style.
 
@@ -24,7 +26,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Changed example module naming to be more generic
 
-## 0.0.1 - 2014-05-31
+## 0.0.1 - 2018-02-22
 ### Added
 - Ability to generate image styles from a breakpoint file.
 - This CHANGELOG file to hopefully serve as an evolving example of a
@@ -33,3 +35,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - README for basic instructions.
 
 [Unreleased]: https://github.com/tamtamnl/Drupal-Breakgen/compare/v0.0.1...HEAD
+[0.0.2]: https://github.com/tamtamnl/Drupal-Breakgen/compare/v0.0.1...v0.0.2
