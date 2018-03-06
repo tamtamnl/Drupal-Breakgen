@@ -34,5 +34,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Standard breakpoint file.
 - README for basic instructions.
 
-[Unreleased]: https://github.com/tamtamnl/Drupal-Breakgen/compare/v0.0.1...HEAD
-[0.0.2]: https://github.com/tamtamnl/Drupal-Breakgen/compare/v0.0.1...v0.0.2
+[Unreleased]: https://github.com/tamtamnl/Drupal-Breakgen/compare/0.0.1...HEAD
+[0.0.2]: https://github.com/tamtamnl/Drupal-Breakgen/compare/0.0.1...0.0.2
