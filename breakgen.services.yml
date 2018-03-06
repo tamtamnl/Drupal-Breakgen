@@ -3,6 +3,6 @@ services:
     class: Drupal\breakgen\Service\ImageStyleGenerator
     arguments:
     - '@breakpoint.manager'
-    - '@plugin.manager.image.effect'
     - '@entity_type.manager'
     - '@theme.manager'
+    - '@module_handler'
