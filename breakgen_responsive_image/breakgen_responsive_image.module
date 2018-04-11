@@ -37,7 +37,7 @@ function breakgen_responsive_image_breakgen_post_save_image_styles(
       // Generate deviation of image by percentage.
       if (isset($breakgenGroupConfiguration['percentages'])) {
         foreach ($breakgenGroupConfiguration['percentages'] as $percentage) {
-          $imageStyleMachineName = $key . '.' . str_replace('%', '', $percentage)
+          $imageStyleMachineName = str_replace('.', '_', $key) . '.' . str_replace('%', '', $percentage)
             . '_breakgen_' . $groupName;
           $deviationGroupName = $groupName . '_' . str_replace('%', '', $percentage);
           breakgen_responsive_image_merge($imageStyleMachineName, $deviationGroupName, $isFallback);
