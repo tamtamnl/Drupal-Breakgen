@@ -190,7 +190,7 @@ class ImageStyleGenerator {
     $modifier = NULL
   ) {
     // Generate machine name.
-    $machineName = $breakpointKey . '_breakgen_' . $groupName;
+    $machineName = str_replace('.', '_',$breakpointKey) . '_breakgen_' . $groupName;
 
     // Generate label.
     $label = "$breakpointLabel $groupName";
