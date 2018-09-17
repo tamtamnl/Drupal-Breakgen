@@ -32,7 +32,12 @@ function breakgen_responsive_image_breakgen_post_save_image_styles(
         $breakgenGroupConfiguration['responsive_image_fallback'] === TRUE);
 
       $imageStyleMachineName = $key . '_breakgen_' . $groupName;
-      breakgen_responsive_image_merge($imageStyleMachineName, $groupName, $isFallback);
+      // Ensure correct imageStyle machine name
+      $imageStyleMachineName = str_replace('.','_', $imageStyleMachineName);
+
+      // Set correct breakpoint group
+      $breakpointGroup = strtok($key,'.');
+      breakgen_responsive_image_merge($imageStyleMachineName, $groupName, $isFallback, $breakpointGroup);
 
       // Generate deviation of image by percentage.
       if (isset($breakgenGroupConfiguration['percentages'])) {
@@ -40,7 +45,7 @@ function breakgen_responsive_image_breakgen_post_save_image_styles(
           $imageStyleMachineName = str_replace('.', '_', $key) . '.' . str_replace('%', '', $percentage)
             . '_breakgen_' . $groupName;
           $deviationGroupName = $groupName . '_' . str_replace('%', '', $percentage);
-          breakgen_responsive_image_merge($imageStyleMachineName, $deviationGroupName, $isFallback);
+          breakgen_responsive_image_merge($imageStyleMachineName, $deviationGroupName, $isFallback, $breakpointGroup);
         }
       }
     }
@@ -60,7 +65,8 @@ function breakgen_responsive_image_breakgen_post_save_image_styles(
 function breakgen_responsive_image_merge(
   $imageStyleMachineName,
   $groupName,
-  $isFallback
+  $isFallback,
+  $breakpointGroup = 'responsive_image'
 ) {
   $machineName = 'breakgen_responsive_image_' . $groupName;
   $fallbackMachineName = '_original image_';
@@ -72,7 +78,7 @@ function breakgen_responsive_image_merge(
   $responsiveImageStyle = ResponsiveImageStyle::load($machineName);
 
   if ($responsiveImageStyle === NULL) {
-    breakgen_responsive_image_create($machineName, $groupName, $imageStyleMachineName, $fallbackMachineName);
+    breakgen_responsive_image_create($machineName, $groupName, $imageStyleMachineName, $fallbackMachineName, $breakpointGroup);
   }
   else {
     $imageStyleMappings = $responsiveImageStyle->get('image_style_mappings');
@@ -96,21 +102,25 @@ function breakgen_responsive_image_merge(
  *   Machine name of a image style to add to the responsive image style.
  * @param string $fallbackMachineName
  *   Machine name for the fallback image.
+ * @param string $breakpointGroup
+ *  Breakpoint group
+ * @throws \Drupal\Core\Entity\EntityStorageException
  */
 function breakgen_responsive_image_create(
   $machineName,
   $groupName,
   $imageStyleMachineName,
-  $fallbackMachineName
+  $fallbackMachineName,
+  $breakpointGroup
 ) {
   $label = str_replace('.', ' ', str_replace('_', ' ', $groupName));
   $responsiveImageStyle = ResponsiveImageStyle::create([
     'id'                   => $machineName,
     'label'                => "Breakgen: " . $label,
-    'breakpoint_group'     => 'responsive_image',
+    'breakpoint_group'     => $breakpointGroup,
     'image_style_mappings' => [
       [
-        'breakpoint_id'      => 'responsive_image.viewport_sizing',
+        'breakpoint_id'      => $breakpointGroup.'.viewport_sizing',
         'multiplier'         => '1x',
         'image_mapping_type' => 'sizes',
         'image_mapping'      => [
