@@ -36,7 +36,11 @@ function breakgen_crop_breakgen_image_style_effect_alter(
       ->condition('id', $cropId)
       ->execute();
 
-    $cropType = CropType::load(current($cropTypeIds));
+      if (empty($cropTypeIds)) {
+          $cropType = null;
+      } else {
+          $cropType = CropType::load(current($cropTypeIds));
+      }
 
     // If the type exists, don't create a new one. But set the modified ID.
     if ($cropType !== NULL) {

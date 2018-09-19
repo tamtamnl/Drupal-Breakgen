@@ -6,6 +6,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+## [0.0.4] - 2018-10-17
+### Added
+- Add drush 9.x support
+- Add correct breakpoint group for breakgen_responsive_image module
+### Fixed
+- Fix wrong imageStyleMachine name issue
+- Fix breakgen_crop Warning: array_flip(): Can only flip STRING and INTEGER values! in Drupal\Core\Entity\EntityStorageBase->loadMultiple()
+
+## [0.0.3] - 2018-03-11
+### Fixed
+- Fix another minor bug for machine name (strips out dots from yml file)
+
 ## [0.0.2] - 2018-02-22
 ### Changed
 - Changed code style from PSR-2 to Drupal code style.
